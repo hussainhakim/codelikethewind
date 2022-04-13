@@ -46,7 +46,7 @@ pipeline {
 
           // Add steps here
 			  openshift.withCluster() {
-			  openshift.withProject("<your_project_name") {
+			  openshift.withProject("testhh") {
 
 				def deployment = openshift.selector("dc", "codelikethewind")
 
