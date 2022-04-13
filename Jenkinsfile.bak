@@ -23,7 +23,7 @@ pipeline {
 
           // Add steps here
 		  openshift.withCluster() {
-			  openshift.withProject("testhh") {
+			  openshift.withProject("<your_project_name>") {
 				def buildConfigExists = openshift.selector("bc", "codelikethewind").exists()
 
 				if(!buildConfigExists){
@@ -45,22 +45,7 @@ pipeline {
         script {
 
           // Add steps here
-			  openshift.withCluster() {
-			  openshift.withProject("<your_project_name") {
 
-				def deployment = openshift.selector("dc", "codelikethewind")
-
-				if(!deployment.exists()){
-				  openshift.newApp('codelikethewind', "--as-deployment-config").narrow('svc').expose()
-				}
-
-				timeout(5) { 
-				  openshift.selector("dc", "codelikethewind").related('pods').untilEach(1) {
-					return (it.object().status.phase == "Running")
-				  }
-				}
-			 }
-			}
         }
       }
     }
